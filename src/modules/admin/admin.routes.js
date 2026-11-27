@@ -8,6 +8,7 @@ const registrationController = require('../registration/registration.controller'
 const facultyController = require('./facultyManagement.controller');
 const evaluatorController = require('./evaluatorManagement.controller');
 const platformSettingsController = require('./platformSettings.controller');
+const analyticsController = require('./analytics/analytics.controller');
 const rateLimit = require('express-rate-limit');
 
 const router = express.Router();
@@ -33,10 +34,18 @@ router.get('/users/statistics', adminController.getStatistics);
 router.get('/users', adminController.listUsers);
 router.post('/users/faculty', adminController.createFaculty);
 router.get('/users/:userId', adminController.getUserById);
+router.patch('/users/:userId/role', adminController.updateUserRole);
 router.patch('/users/:userId/status', adminController.updateUserStatus);
 router.patch('/users/:userId', adminController.updateUser);
 router.get('/settings', platformSettingsController.getSettings);
 router.patch('/settings', platformSettingsController.updateSettings);
+router.get('/analytics/metadata', analyticsController.getMetadata);
+router.get('/analytics/overview', analyticsController.getOverview);
+router.get('/analytics/users', analyticsController.getUsers);
+router.get('/analytics/events', analyticsController.getEvents);
+router.get('/analytics/teams-registrations', analyticsController.getTeamsRegistrations);
+router.get('/analytics/reports/preview', analyticsController.getReportPreview);
+router.get('/analytics/reports/export', analyticsController.exportReport);
 router.get('/events/statistics', adminEventController.getStatistics);
 router.get('/events', adminEventController.listEvents);
 router.post('/events', adminEventController.createEvent);
